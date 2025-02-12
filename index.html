@@ -59,6 +59,11 @@
     </style>
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/elektronnaya-vspyishka-apple-phone-postavlyaetsya-s-zvukovyim-effektom-zvukovogo-signala-41356.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
     <div class="container">
         <div class="terminal-text" id="text-output"></div>
         <input type="text" id="username" placeholder="Введіть своє ім'я">
@@ -66,16 +71,18 @@
     </div>
 
     <script>
-        const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
-        let i = 0;
-        function typeText() {
-            if (i < text.length) {
-                document.getElementById("text-output").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeText, 50);
+        document.addEventListener("DOMContentLoaded", function() {
+            const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
+            let i = 0;
+            function typeText() {
+                if (i < text.length) {
+                    document.getElementById("text-output").innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeText, 50);
+                }
             }
-        }
-        document.addEventListener("DOMContentLoaded", typeText);
+            typeText();
+        });
         
         function redirectToInvite() {
             let name = document.getElementById('username').value.trim();
