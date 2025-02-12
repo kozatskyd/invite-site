@@ -59,12 +59,9 @@
     </style>
 </head>
 <body>
-    <audio id="silentAudio">
-        <source src="data:audio/mp3;base64,//uQxAAADAA==" type="audio/mp3">
-    </audio>
-    
     <audio id="backgroundAudio">
         <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/elektronnaya-vspyishka-apple-phone-postavlyaetsya-s-zvukovyim-effektom-zvukovogo-signala-41356.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
     
     <div class="container">
@@ -86,19 +83,14 @@
             }
             typeText();
 
-            // Обхід блокування автозапуску звуку через беззвучний звук
-            let silentAudio = document.getElementById("silentAudio");
-            let backgroundAudio = document.getElementById("backgroundAudio");
-            
-            silentAudio.volume = 0;
-            silentAudio.play().then(() => {
-                backgroundAudio.play().then(() => {
-                    console.log("Звук запущено автоматично!");
-                }).catch(error => {
-                    console.log("Браузер заблокував звук:", error);
-                });
+            // Автоматичний запуск звуку після завантаження сторінки
+            let audio = document.getElementById("backgroundAudio");
+            audio.muted = false;
+            audio.play().then(() => {
+                console.log("Звук відтворюється автоматично.");
             }).catch(error => {
-                console.log("Браузер заблокував беззвучний звук:", error);
+                console.log("Автоматичне відтворення заблоковано браузером. Очікуємо на взаємодію користувача:", error);
+                document.addEventListener("click", () => audio.play(), { once: true });
             });
         });
         
