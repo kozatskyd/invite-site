@@ -10,45 +10,55 @@
             color: green;
             font-family: 'Courier New', monospace;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-            margin-top: 10vh;
             border: 2px solid green;
-            padding: 20px;
-            display: inline-block;
+            padding: 15px;
             background-color: black;
             width: 90%;
-            max-width: 600px;
+            max-width: 400px;
         }
         .invite-box {
             border: 2px solid green;
-            padding: 15px;
-            display: inline-block;
-            margin-top: 15px;
+            padding: 10px;
             text-align: left;
-            font-size: 18px;
+            font-size: 16px;
         }
         .qr-code {
-            margin-top: 20px;
+            margin-top: 10px;
             text-align: center;
         }
         img {
             max-width: 100%;
             height: auto;
         }
+        .screenshot-reminder {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+        }
         @media (max-width: 480px) {
             .container {
-                margin-top: 5vh;
-                padding: 15px;
+                padding: 10px;
             }
             .invite-box {
-                font-size: 16px;
+                font-size: 14px;
             }
             h1 {
-                font-size: 22px;
+                font-size: 20px;
             }
             h2 {
-                font-size: 18px;
+                font-size: 16px;
+            }
+            .screenshot-reminder {
+                font-size: 16px;
             }
         }
     </style>
@@ -58,7 +68,7 @@
         <h1>🚀 Запрошення на корабель ZAR-2A</h1>
         <h2 id="guestName"></h2>
         <div class="invite-box">
-            <p>📡 Ви отримали доступ до закритої події: <strong>\"Космічна любов: Святкування дня Святого Валентина\"</strong>.</p>
+            <p>📡 Ви отримали доступ до закритої події: <strong>"Космічна любов: Святкування дня Святого Валентина"</strong>.</p>
             <p>🛰 Дата події: <strong>15 лютого, 18:00</strong></p>
             <p>📍 Локація: <strong>Осокорська 2А</strong></p>
             <p>👕 Дресс-код: <strong>Блискучий, футуристичний одяг (або що є)</strong></p>
@@ -66,6 +76,7 @@
             <div class="qr-code">
                 <img id="qrCode" src="" alt="Штрих-код запрошення">
             </div>
+            <p class="screenshot-reminder">📸 ЗРОБІТЬ СКРІНШОТ!</p>
         </div>
     </div>
 
