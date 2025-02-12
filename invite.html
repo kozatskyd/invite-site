@@ -3,121 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Запрошення на ZAR-2A</title>
+    <title>ZAR-2A - Доступ до корабля</title>
     <style>
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        
         body {
             background-color: black;
             color: green;
             font-family: 'Courier New', monospace;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
         }
         .container {
+            margin-top: 10vh;
             border: 2px solid green;
-            padding: 15px;
+            padding: 20px;
+            display: inline-block;
             background-color: black;
             width: 90%;
-            max-width: 400px;
+            max-width: 600px;
         }
-        .invite-box {
-            border: 2px solid green;
-            padding: 10px;
+        .terminal-text {
             text-align: left;
-            font-size: 16px;
-        }
-        .qr-code {
-            margin-top: 10px;
-            text-align: center;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        .screenshot-reminder {
-            margin-top: 15px;
+            display: inline-block;
             font-size: 18px;
-            font-weight: bold;
-            color: red;
-            animation: blink 1s infinite;
+            white-space: pre-wrap;
+        }
+        .scan-btn {
+            background: green;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+        }
+        #username {
+            background: black;
+            border: 1px solid green;
+            color: green;
+            font-family: 'Courier New', monospace;
+            padding: 5px;
+            font-size: 18px;
         }
         @media (max-width: 480px) {
             .container {
-                padding: 10px;
+                margin-top: 5vh;
+                padding: 15px;
             }
-            .invite-box {
-                font-size: 14px;
+            .terminal-text {
+                font-size: 16px;
             }
             h1 {
-                font-size: 20px;
-            }
-            h2 {
-                font-size: 16px;
-            }
-            .screenshot-reminder {
-                font-size: 16px;
+                font-size: 22px;
             }
         }
     </style>
 </head>
 <body>
-    <audio id="backgroundAudio" autoplay>
-        <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/zakryitie-otseka-kosmicheskogo-korablya-lyuk-29308.mp3" type="audio/mpeg">
+    <audio id="backgroundAudio">
+        <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/elektronnaya-vspyishka-apple-phone-postavlyaetsya-s-zvukovyim-effektom-zvukovogo-signala-41356.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <div class="container">
-        <h1>🚀 Запрошення на корабель ZAR-2A</h1>
-        <h2 id="guestName"></h2>
-        <div class="invite-box">
-            <p>📡 Ви отримали доступ до закритої події: <strong>"Космічна любов: Святкування дня Святого Валентина"</strong>.</p>
-            <p>🛰 Дата події: <strong>15 лютого, 18:00</strong></p>
-            <p>📍 Локація: <strong>Осокорська 2А, квартира 692</strong></p>
-            <p>👕 Дресс-код: <strong>Блискучий, футуристичний одяг (або що є)</strong></p>
-            <p>❗ Покажіть цей штрих-код для підтвердження вашого доступу.</p>
-            <div class="qr-code">
-                <img id="qrCode" src="" alt="Штрих-код запрошення">
-            </div>
-            <p class="screenshot-reminder">📸 ЗРОБІТЬ СКРІНШОТ!</p>
-        </div>
+        <div class="terminal-text" id="text-output"></div>
+        <input type="text" id="username" placeholder="Введіть своє ім'я">
+        <button class="scan-btn" onclick="redirectToInvite()">Долучитися</button>
     </div>
 
     <script>
-        function getQueryParam(param) {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
         document.addEventListener("DOMContentLoaded", function() {
-            let guestName = getQueryParam("name");
-            if (guestName) {
-                document.getElementById("guestName").innerText = `👨‍🚀 Ідентифікація завершена: ${guestName}`;
-                generateQRCode(guestName);
-            } else {
-                document.getElementById("guestName").innerText = "⚠️ Помилка ідентифікації";
+            const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
+            let i = 0;
+            function typeText() {
+                if (i < text.length) {
+                    document.getElementById("text-output").innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeText, 50);
+                }
             }
-            
-            // Автоматичний запуск звуку одразу після завантаження сторінки
+            typeText();
+
+            // Автоматичний запуск звуку після завантаження сторінки
             let audio = document.getElementById("backgroundAudio");
             audio.muted = false;
-            audio.play().catch(error => {
-                console.log("Автоматичне відтворення заблоковано браузером:", error);
+            audio.play().then(() => {
+                console.log("Звук відтворюється автоматично.");
+            }).catch(error => {
+                console.log("Автоматичне відтворення заблоковано браузером. Очікуємо на взаємодію користувача:", error);
+                document.addEventListener("click", () => audio.play(), { once: true });
             });
         });
-
-        function generateQRCode(text) {
-            let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(text)}`;
-            document.getElementById("qrCode").src = qrUrl;
+        
+        function redirectToInvite() {
+            let name = document.getElementById('username').value.trim();
+            if(name !== "") {
+                window.location.href = `invite.html?name=${encodeURIComponent(name)}`;
+            } else {
+                alert("Введіть ім'я для доступу!");
+            }
         }
     </script>
 </body>
