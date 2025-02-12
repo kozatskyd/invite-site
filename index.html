@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -10,15 +10,20 @@
             color: green;
             font-family: 'Courier New', monospace;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-            margin-top: 10vh;
             border: 2px solid green;
             padding: 20px;
-            display: inline-block;
             background-color: black;
             width: 90%;
             max-width: 600px;
+            display: none;
         }
         .terminal-text {
             text-align: left;
@@ -44,9 +49,24 @@
             padding: 5px;
             font-size: 18px;
         }
+        .start-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: green;
+            font-size: 24px;
+            font-family: 'Courier New', monospace;
+            border: 2px solid green;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         @media (max-width: 480px) {
             .container {
-                margin-top: 5vh;
                 padding: 15px;
             }
             .terminal-text {
@@ -63,45 +83,41 @@
         <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/elektronnaya-vspyishka-apple-phone-postavlyaetsya-s-zvukovyim-effektom-zvukovogo-signala-41356.mp3" type="audio/mpeg">
     </audio>
     
-    <div class="container">
+    <button class="start-btn" onclick="startExperience()">РОЗПОЧАТИ</button>
+    
+    <div class="container" id="mainContent">
         <div class="terminal-text" id="text-output"></div>
         <input type="text" id="username" placeholder="Введіть своє ім'я">
         <button class="scan-btn" onclick="redirectToInvite()">Долучитися</button>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
-            let i = 0;
-            function typeText() {
-                if (i < text.length) {
-                    document.getElementById("text-output").innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeText, 50);
-                }
-            }
-            typeText();
-        });
-
-        function enableAudio() {
+        function startExperience() {
             let audio = document.getElementById("backgroundAudio");
+            let startBtn = document.querySelector(".start-btn");
+            let mainContent = document.getElementById("mainContent");
+            
             audio.play().then(() => {
-                console.log("Звук запущено автоматично!");
+                console.log("Звук запущено.");
             }).catch(error => {
-                console.log("Браузер блокує автоматичне відтворення:", error);
+                console.log("Помилка відтворення аудіо:", error);
             });
             
-            // Видаляємо обробник після першої взаємодії
-            document.removeEventListener("click", enableAudio);
-            document.removeEventListener("keydown", enableAudio);
-            document.removeEventListener("touchstart", enableAudio);
+            startBtn.style.display = "none";
+            mainContent.style.display = "block";
+            typeText();
         }
-
-        // Додаємо обробник на будь-яку взаємодію
-        document.addEventListener("click", enableAudio);
-        document.addEventListener("keydown", enableAudio);
-        document.addEventListener("touchstart", enableAudio);
-
+        
+        const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
+        let i = 0;
+        function typeText() {
+            if (i < text.length) {
+                document.getElementById("text-output").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeText, 50);
+            }
+        }
+        
         function redirectToInvite() {
             let name = document.getElementById('username').value.trim();
             if(name !== "") {
