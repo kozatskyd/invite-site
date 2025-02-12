@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAR-2A - Доступ до корабля</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+        .container {
+            margin-top: 10vh;
+            border: 2px solid green;
+            padding: 20px;
+            display: inline-block;
+            background-color: black;
+            width: 90%;
+            max-width: 600px;
+        }
+        .terminal-text {
+            text-align: left;
+            display: inline-block;
+            font-size: 18px;
+            white-space: pre-wrap;
+        }
+        .scan-btn {
+            background: green;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+        }
+        #username {
+            background: black;
+            border: 1px solid green;
+            color: green;
+            font-family: 'Courier New', monospace;
+            padding: 5px;
+            font-size: 18px;
+        }
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 5vh;
+                padding: 15px;
+            }
+            .terminal-text {
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="terminal-text" id="text-output"></div>
+        <input type="text" id="username" placeholder="Введіть своє ім'я">
+        <button class="scan-btn" onclick="redirectToInvite()">Долучитися</button>
+    </div>
+
+    <script>
+        const text = "ВІТАЄМО, ПРЕДСТАВНИК ЕЛІТНОГО СУСПІЛЬСТВА 23-ГО СТОЛІТТЯ НА КОСМІЧНОМУ КОРАБЛІ ZAR-2A.\n\nЦЕЙ КОРАБЕЛЬ БУВ СТИЛІЗОВАНИЙ ПІД СТАРУ КВАРТИРУ 21 СТОЛІТТЯ.\n\nЦЕЙ КОРАБЕЛЬ БІЛЬШЕ НЕ ФУНКЦІОНУЄ, ОДНАК В МОРОЗИЛЬНИХ СИСТЕМАХ ЗАЛИШИЛИСЬ ЗАПАСИ СТАРОЇ, ВИШУКАНОЇ ЛЮДСЬКОЇ ЇЖІ, ЯКУ ВИ ЗМОЖЕТЕ СПРОБУВАТИ.\n\nЩОБ ДОЛУЧИТИСЬ ДО ВЕЧІРКИ ДО ДНЯ СВЯТОГО ВАЛЕНТИНА - ВВЕДІТЬ СВОЄ ІМ'Я:";
+        let i = 0;
+        function typeText() {
+            if (i < text.length) {
+                document.getElementById("text-output").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeText, 50);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", typeText);
+        
+        function redirectToInvite() {
+            let name = document.getElementById('username').value.trim();
+            if(name !== "") {
+                window.location.href = `invite.html?name=${encodeURIComponent(name)}`;
+            } else {
+                alert("Введіть ім'я для доступу!");
+            }
+        }
+    </script>
+</body>
+</html>
