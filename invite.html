@@ -29,6 +29,7 @@
             background-color: black;
             width: 90%;
             max-width: 400px;
+            display: none;
         }
         .invite-box {
             border: 2px solid green;
@@ -51,6 +52,22 @@
             color: red;
             animation: blink 1s infinite;
         }
+        .start-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: green;
+            font-size: 24px;
+            font-family: 'Courier New', monospace;
+            border: 2px solid green;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         @media (max-width: 480px) {
             .container {
                 padding: 10px;
@@ -71,15 +88,13 @@
     </style>
 </head>
 <body>
-    <audio id="silentAudio">
-        <source src="data:audio/mp3;base64,//uQxAAADAA==" type="audio/mp3">
-    </audio>
-    
     <audio id="backgroundAudio">
         <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/zakryitie-otseka-kosmicheskogo-korablya-lyuk-29308.mp3" type="audio/mpeg">
     </audio>
     
-    <div class="container">
+    <button class="start-btn" onclick="startExperience()">ОТРИМАТИ ЗАПРОШЕННЯ</button>
+    
+    <div class="container" id="mainContent">
         <h1>🚀 Запрошення на корабель ZAR-2A</h1>
         <h2 id="guestName"></h2>
         <div class="invite-box">
@@ -96,6 +111,21 @@
     </div>
 
     <script>
+        function startExperience() {
+            let audio = document.getElementById("backgroundAudio");
+            let startBtn = document.querySelector(".start-btn");
+            let mainContent = document.getElementById("mainContent");
+            
+            audio.play().then(() => {
+                console.log("Звук запущено.");
+            }).catch(error => {
+                console.log("Помилка відтворення аудіо:", error);
+            });
+            
+            startBtn.style.display = "none";
+            mainContent.style.display = "block";
+        }
+        
         function getQueryParam(param) {
             let urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -109,21 +139,6 @@
             } else {
                 document.getElementById("guestName").innerText = "⚠️ Помилка ідентифікації";
             }
-            
-            // Обхід блокування автозапуску звуку через беззвучний звук
-            let silentAudio = document.getElementById("silentAudio");
-            let backgroundAudio = document.getElementById("backgroundAudio");
-            
-            silentAudio.volume = 0;
-            silentAudio.play().then(() => {
-                backgroundAudio.play().then(() => {
-                    console.log("Звук запущено автоматично!");
-                }).catch(error => {
-                    console.log("Браузер заблокував звук:", error);
-                });
-            }).catch(error => {
-                console.log("Браузер заблокував беззвучний звук:", error);
-            });
         });
 
         function generateQRCode(text) {
