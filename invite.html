@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Запрошення на ZAR-2A</title>
     <style>
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
         body {
             background-color: black;
             color: green;
@@ -43,6 +49,7 @@
             font-size: 18px;
             font-weight: bold;
             color: red;
+            animation: blink 1s infinite;
         }
         @media (max-width: 480px) {
             .container {
@@ -65,7 +72,7 @@
 </head>
 <body>
     <audio autoplay loop>
-        <source src="https://drive.google.com/file/d/1ZkkUG-LdhNCktDC91yaoowZXNUbVqd55/view?usp=share_link" type="audio/mpeg">
+        <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/zakryitie-otseka-kosmicheskogo-korablya-lyuk-29308.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
