@@ -71,7 +71,7 @@
     </style>
 </head>
 <body>
-    <audio id="backgroundAudio" loop>
+    <audio id="backgroundAudio" autoplay>
         <source src="https://github.com/kozatskyd/invite-site/raw/refs/heads/main/zakryitie-otseka-kosmicheskogo-korablya-lyuk-29308.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -107,17 +107,12 @@
                 document.getElementById("guestName").innerText = "⚠️ Помилка ідентифікації";
             }
             
-            // Додаємо обробник першої взаємодії користувача, щоб включити звук
-            function enableAudio() {
-                let audio = document.getElementById("backgroundAudio");
-                audio.play().then(() => {
-                    console.log("Автоматичне відтворення увімкнено.");
-                }).catch(error => {
-                    console.log("Автоматичне відтворення заблоковано браузером:", error);
-                });
-                document.removeEventListener("click", enableAudio);
-            }
-            document.addEventListener("click", enableAudio);
+            // Автоматичний запуск звуку одразу після завантаження сторінки
+            let audio = document.getElementById("backgroundAudio");
+            audio.muted = false;
+            audio.play().catch(error => {
+                console.log("Автоматичне відтворення заблоковано браузером:", error);
+            });
         });
 
         function generateQRCode(text) {
